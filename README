@@ -1,0 +1,13 @@
+In this miniproject, you are gonna implement an tick-tock game with C++.
+
+Introduction of tick-tock:
+   0123456789ABC
+  0#############
+  1# X # O # O #
+  2#############
+  3# O # X # X #
+  4#############
+  5# X # O # O #
+  6#############
+
+STEP1: Create a board class and basic method of this class
