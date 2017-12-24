@@ -11,4 +11,29 @@ Introduction of tick-tock:
   6#############
 
 
-STEP1: YOU ARE GONNA PRING BOARD
+DONE:
+#GameDemon:
+  1. Print welcome information
+  2. Ask user for playing with human or AI
+  3. create another player
+  4. ask that player's name
+  5. ask major player to choose O or X ( O will move first and X will move next)
+  6. GameDemon has a board
+  7. GameDemon has a vector of players
+  
+#Board:
+  1. Create a board class, a vector of vector to store status of each block
+     0 means this space hasn't been occupied by any players
+     1 means this space is occupied by O
+    -1 means this space is occupied by X
+
+  2. Add printBoard function, after both players have made their move, if no winner or no dual, board
+     will be printed again.
+
+  3. Add checkWinner
+  4. Add checkEven
+  
+#Player:
+  1. It should be an abstract class, there will be human player and AI player.
+  2. All players have their names(fields)
+  3. All players have make their moves(point out which location they want to occupy)
