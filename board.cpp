@@ -1,5 +1,8 @@
 #include <iostream>
 #include "board.h"
+#include <climits>
+#include <cstdio>
+#include <sstream>
 void thirteenPound(){
   for(int i = 0 ; i < 13; ++i){
     std::cout<<"#";
@@ -122,7 +125,33 @@ bool board::checkIsFull(){ //This means dual
   return true;
 }
 
+bool isDigit(std::string line){
+  std::string::const_iterator it = line.begin();
+  while(it != line.end()){
+      if(!(*it >= '0' && *it <= '9')){
+	return false;
+      }
+      ++it;
+    }
+    return true;
+}
+
 bool board::isValid(std::string line){
+  std::stringstream ss;
+  ss<<line;
+  std::string num1;
+  std::string num2;
+  ss>>num1;
+  ss>>num2;
+  if(num1.empty() || num2.empty()){
+    return false;
+  }
+  else if( !isDigit(num1) || !isDigit(num2)){
+    return false;
+  }
+  else{
+    return true;
+  }
 }
 
 bool board::isOutRange(int row, int column){
@@ -134,11 +163,27 @@ bool board::isOutRange(int row, int column){
   return false;
 }
 
-bool isOccupied(int row, int column){
+bool board::isOccupied(int row, int column){
   if(snapShot[row][column] != 0){
     return true;
   }
   else{
     return false;
+  }
+}
+
+void board::update(int row, int column,const std::string & type){
+  if(type == "O"){
+    snapShot[row][column] = 1;
+  }
+  else{
+    snapShot[row][column] = -1;
+  }
+}
+void board::clearBoard(){
+  for(int i = 0; i < 3; ++i){
+    for(int j =0; j <3; ++j){
+      snapShot[i][j] = 0;
+    }
   }
 }

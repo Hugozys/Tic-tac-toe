@@ -22,11 +22,13 @@ int main(void){
       break;
     }
     else if(input == "Y"){
+      GM.clearbd();
       GM.createSecondPlayer();
       GM.decideOrder();
       std::cout<<"Game Start!"<<std::endl;
       GM.playGame();
       continue;
     }
+  }
   return(EXIT_SUCCESS);
 }

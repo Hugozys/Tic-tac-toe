@@ -6,7 +6,7 @@
 class GameDemon{
   board bd;
   player ** pyArray;
-  queue<player *> order;
+  std::queue<player *> order;
  public:
   GameDemon():bd(),pyArray(new player * [2]()){}
   void welcome();
@@ -14,8 +14,8 @@ class GameDemon{
   void createSecondPlayer();
   void decideOrder();
   void playGame();
-  
-  
+  void eraseSecond();
+  void clearbd();
   ~GameDemon(){
     delete pyArray[1];
     delete pyArray[0];

@@ -8,7 +8,7 @@ class player{
   std::string pawnType;
   
  public:
- player():name(),order(){}
+ player():name(),pawnType(){}
   virtual void AskMyName() = 0;
   virtual ~player(){}
   virtual void NameSecondPlayer(){}
@@ -18,7 +18,8 @@ class player{
   virtual std::string getName() const{
     return name;
   }
-  virtual std::string getPawnType const{
+  
+  virtual std::string getPawnType() const{
     return pawnType;
   }
 };

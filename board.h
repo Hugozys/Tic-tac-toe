@@ -20,6 +20,8 @@ class board{
  bool isOutRange(int row, int column);
  bool isOccupied(int row, int column);
  bool isValid(std::string line);
+ void update(int row, int column,const std::string & type);
+ void clearBoard();
 };
  
 

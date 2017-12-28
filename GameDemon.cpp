@@ -1,4 +1,5 @@
 #include "GameDemon.h"
+#include <sstream>
 void AsterickGenerator(int num){
   for(int i = 0; i< num; ++i){
     std::cout<<"*";
@@ -40,6 +41,10 @@ void GameDemon::createSecondPlayer(){
   }
 }
 
+void GameDemon::eraseSecond(){
+  delete pyArray[1];
+}
+
 void GameDemon::decideOrder(){
   std::cout<<"\n\nHi, "<< pyArray[0]->getName()<<". "<<"Since you are the first player, you can choose side first: "<<std::endl<<"(Enter O to move first and Enter X to move second)"<<std::endl;
   std::string line;
@@ -58,7 +63,8 @@ void GameDemon::decideOrder(){
     order.push(pyArray[1]);
     order.push(pyArray[0]);
     pyArray[0]->changeOrder("X");
-  } pyArray[1]->changeOrder("O");
+    pyArray[1]->changeOrder("O");
+  }
 }
 
 void GameDemon::showBoard(){
@@ -70,30 +76,32 @@ void GameDemon::playGame(){
   std::string ans;
   player * curr = NULL;
   while((ans = bd.whoWins()) == "NONE"){
-    if(checkIsFull()){
+    if(bd.checkIsFull()){
       std::cout<<"Game Over. Dual."<<std::endl;
       return;
     }
     else{
       curr = order.front();
+      order.pop();
       order.push(curr);
       std::cout<< curr->getName()<<"'s turn:"<<std::endl;
       while(true){
 	std::string input;
 	getline(std::cin,input);
-	if(!isValid()){
+	if(!bd.isValid(input)){
 	  std::cout<<"invalid coordinate, please reenter:\n";
 	  continue;
 	}
 	std::stringstream ss;
+	ss<<input;
 	int row, column;
 	ss>>row;
 	ss>>column;
-	if(!isOutRange(row,column)){
+	if(bd.isOutRange(row,column)){
 	  std::cout<<"The coordinate is out of range([0,2]),please reenter:\n";
 	  continue;
 	}
-	if(!isOccupied(row,column)){
+	if(bd.isOccupied(row,column)){
 	  std::cout<<"This block has already been occupied, please reenter:\n";
 	  continue;
 	}
@@ -107,6 +115,8 @@ void GameDemon::playGame(){
   return;
 }
   
-      
+void GameDemon::clearbd(){
+  bd.clearBoard();
+}
       
     
