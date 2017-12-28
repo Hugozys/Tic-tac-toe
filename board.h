@@ -1,6 +1,7 @@
 #ifndef _BOARD__H
 #define _BOARD__H
 #include<vector>
+#include <string>
 class board{
   std::vector<std::vector<int> > snapShot;
  public:
@@ -9,6 +10,16 @@ class board{
  void printBoard();
  char showSymbol(int row, int column);
  void poundWithXO(int i);
+ bool checkIsFull();
+ bool checkWinnerOption(std::string whichWay,int toCheck);
+ bool isWinner(int toCheck);
+ std::string whoWins();
+ //void changeSnapShot(int line);
+ //void changeHor(int t, int toChange);
+ //void changeVer(int t, int toChange);
+ bool isOutRange(int row, int column);
+ bool isOccupied(int row, int column);
+ bool isValid(std::string line);
 };
  
 

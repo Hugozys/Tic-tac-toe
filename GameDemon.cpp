@@ -22,6 +22,91 @@ void GameDemon::createMajorPlayer(){
   pyArray[0] = new humanPlayer();
   pyArray[0]->AskMyName();
 }
+
 void GameDemon::createSecondPlayer(){
-  pyArray[1] = new humanPlayer();
+  std::cout<<"\n\nDo you want to play with human or computer ?(Enter H for human and C for computer):"<<std::endl;
+  std::string line;
+  getline(std::cin,line);
+  while(line != "H" && line != "C"){
+    std::cout<<"Enter H for human and C for computer:"<<std::endl;
+    getline(std::cin,line);
+  }
+  if(line == "H"){
+    pyArray[1] = new humanPlayer();
+    pyArray[1]->NameSecondPlayer();
+  }
+  else{
+    pyArray[1] = new aiPlayer();
+  }
 }
+
+void GameDemon::decideOrder(){
+  std::cout<<"\n\nHi, "<< pyArray[0]->getName()<<". "<<"Since you are the first player, you can choose side first: "<<std::endl<<"(Enter O to move first and Enter X to move second)"<<std::endl;
+  std::string line;
+  getline(std::cin,line);
+  while(line != "O" && line != "X"){
+    std::cout<<"Enter O to move first or X to move second:"<<std::endl;
+    getline(std::cin,line);
+  }
+  if(line == "O"){
+    order.push(pyArray[0]);
+    order.push(pyArray[1]);
+    pyArray[0]->changeOrder("O");
+    pyArray[1]->changeOrder("X");
+  }
+  else{
+    order.push(pyArray[1]);
+    order.push(pyArray[0]);
+    pyArray[0]->changeOrder("X");
+  } pyArray[1]->changeOrder("O");
+}
+
+void GameDemon::showBoard(){
+  bd.printBoard();
+}
+
+void GameDemon::playGame(){
+  showBoard();
+  std::string ans;
+  player * curr = NULL;
+  while((ans = bd.whoWins()) == "NONE"){
+    if(checkIsFull()){
+      std::cout<<"Game Over. Dual."<<std::endl;
+      return;
+    }
+    else{
+      curr = order.front();
+      order.push(curr);
+      std::cout<< curr->getName()<<"'s turn:"<<std::endl;
+      while(true){
+	std::string input;
+	getline(std::cin,input);
+	if(!isValid()){
+	  std::cout<<"invalid coordinate, please reenter:\n";
+	  continue;
+	}
+	std::stringstream ss;
+	int row, column;
+	ss>>row;
+	ss>>column;
+	if(!isOutRange(row,column)){
+	  std::cout<<"The coordinate is out of range([0,2]),please reenter:\n";
+	  continue;
+	}
+	if(!isOccupied(row,column)){
+	  std::cout<<"This block has already been occupied, please reenter:\n";
+	  continue;
+	}
+	bd.update(row,column,curr->getPawnType());
+	showBoard();
+	break;
+      }
+    }
+  }
+  std::cout<<"Game Over. "<<curr->getName()<<" wins!"<<std::endl;
+  return;
+}
+  
+      
+      
+    

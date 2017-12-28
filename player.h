@@ -5,17 +5,35 @@
 class player{
  protected:
   std::string name;
-  std::string order;
+  std::string pawnType;
   
  public:
-  player():name(),order(){}
+ player():name(),order(){}
   virtual void AskMyName() = 0;
   virtual ~player(){}
+  virtual void NameSecondPlayer(){}
+  virtual void changeOrder(std::string type){
+    pawnType = type;
+  }
+  virtual std::string getName() const{
+    return name;
+  }
+  virtual std::string getPawnType const{
+    return pawnType;
+  }
 };
 
 class humanPlayer: public player{
 public:
   virtual void AskMyName();
+  void NameSecondPlayer();
   virtual ~humanPlayer(){};
 };
+
+class aiPlayer: public player{
+ public:
+  virtual void AskMyName();
+  virtual ~aiPlayer(){}
+};
+
 #endif
