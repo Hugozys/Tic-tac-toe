@@ -2,13 +2,15 @@
 #define _PLAYER__H
 #include<string>
 #include<iostream>
+#include "board.h"
+#include <utility>
 class player{
  protected:
   std::string name;
   std::string pawnType;
   
  public:
- player():name(),pawnType(){}
+ player():name("AI"),pawnType(){}
   virtual void AskMyName() = 0;
   virtual ~player(){}
   virtual void NameSecondPlayer(){}
@@ -22,7 +24,10 @@ class player{
   virtual std::string getPawnType() const{
     return pawnType;
   }
+  virtual std::pair<int,int> getBestMove(board & bd){return std::pair<int,int>();}
+  virtual int getBestMoveHelper(board && bd, std::string type){return 0;}
 };
+
 
 class humanPlayer: public player{
 public:
@@ -32,12 +37,11 @@ public:
 };
 
 class aiPlayer: public player{
- private:
-  vector<
  public:
   virtual void AskMyName();
   virtual ~aiPlayer(){}
-  
+  virtual std::pair<int,int> getBestMove(board & bd);
+  virtual int getBestMoveHelper(board && bd, std::string type, int depth);
 };
 
 #endif

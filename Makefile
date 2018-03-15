@@ -1,6 +1,6 @@
 .PHONY: clean depend
-CXX = g++ -std=gnu++03 -Wall -Werror -pedantic -ggdb3
-CXXO = g++ -std=gnu++03 -Wall -Werror -pedantic -ggdb3 -o $@
+CXX = g++ -std=gnu++11 -Wall -Werror -pedantic -ggdb3
+CXXO = g++ -std=gnu++11 -Wall -Werror -pedantic -ggdb3 -o $@
 #SRCS = $(wildcard *.cpp)
 #OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 all: Tic-tac-toe
@@ -8,8 +8,9 @@ all: Tic-tac-toe
 testBoard: test_board.cpp board.h board.cpp
 	$(CXX) -o $@ test_board.cpp board.cpp
 
-Tic-tac-toe: board.o tic_tac_toe.o GameDemon.o player.o
-	$(CXXO) board.o tic_tac_toe.o GameDemon.o player.o
+Tic-tac-toe: board.o tic_tac_toe.o GameDemon.o player.o widget.o
+	$(CXXO) board.o tic_tac_toe.o GameDemon.o player.o widget.o
+
 %.o: %.cpp
 	$(CXX) -c $<
 clean:
@@ -22,4 +23,5 @@ depend:
 board.o: board.h
 GameDemon.o: GameDemon.h board.h player.h
 tic_tac_toe.o: GameDemon.h board.h player.h
-player.o: player.h
+player.o: player.h widget.h
+widget.o: widget.h

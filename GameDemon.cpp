@@ -1,5 +1,6 @@
 #include "GameDemon.h"
 #include <sstream>
+#include <time.h>
 void AsterickGenerator(int num){
   for(int i = 0; i< num; ++i){
     std::cout<<"*";
@@ -72,6 +73,49 @@ void GameDemon::showBoard(){
 }
 
 
+void GameDemon::human_turn(player * curr){
+  while(true){
+    std::string input;
+    getline(std::cin,input);
+    if(!bd.isValid(input)){
+      std::cout<<"invalid coordinate, please reenter:\n";
+      continue;
+    }
+    std::stringstream ss;
+    ss<<input;
+    int row, column;
+    ss>>row;
+    ss>>column;
+    if(bd.isOutRange(row,column)){
+      std::cout<<"The coordinate is out of range([0,2]),please reenter:\n";
+      continue;
+    }
+    if(bd.isOccupied(row,column)){
+      std::cout<<"This block has already been occupied, please reenter:\n";
+      continue;
+	}
+    bd.update(row,column,curr->getPawnType());
+    showBoard();
+    break;
+  }
+}
+
+void GameDemon::ai_turn(player * curr){
+  int row;
+  int column;
+  if(bd.isEmpty()){
+    row = rand() % 3;
+    column = rand() % 3;
+  }
+  else{
+    std::pair<int,int> ans = curr->getBestMove(bd);
+    row = ans.first;
+    column = ans.second;
+  }
+  bd.update(row,column,curr->getPawnType());
+  showBoard();
+  
+}
 void GameDemon::playGame(){
   showBoard();
   std::string ans;
@@ -86,29 +130,13 @@ void GameDemon::playGame(){
       order.pop();
       order.push(curr);
       std::cout<< curr->getName()<<"'s turn:"<<std::endl;
-      while(true){
-	std::string input;
-	getline(std::cin,input);
-	if(!bd.isValid(input)){
-	  std::cout<<"invalid coordinate, please reenter:\n";
-	  continue;
-	}
-	std::stringstream ss;
-	ss<<input;
-	int row, column;
-	ss>>row;
-	ss>>column;
-	if(bd.isOutRange(row,column)){
-	  std::cout<<"The coordinate is out of range([0,2]),please reenter:\n";
-	  continue;
-	}
-	if(bd.isOccupied(row,column)){
-	  std::cout<<"This block has already been occupied, please reenter:\n";
-	  continue;
-	}
-	bd.update(row,column,curr->getPawnType());
-	showBoard();
-	break;
+      if(curr->getName() == "AI"){
+	ai_turn(curr);
+	bd.notEmpty();
+      }
+      else{
+      	human_turn(curr);
+	bd.notEmpty();
       }
     }
   }
@@ -120,4 +148,6 @@ void GameDemon::clearbd(){
   bd.clearBoard();
 }
       
-    
+void GameDemon::clearOrder(){
+  order = std::queue<player *>();
+}

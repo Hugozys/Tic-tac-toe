@@ -1,7 +1,8 @@
 #include "GameDemon.h"
 #include <cstdlib>
-
+#include <time.h>
 int main(void){
+  srand(time(NULL));
   GameDemon GM;
   GM.welcome();
   GM.createMajorPlayer();
@@ -23,6 +24,7 @@ int main(void){
     else if(input == "Y"){
       GM.eraseSecond();
       GM.clearbd();
+      GM.clearOrder();
       GM.createSecondPlayer();
       GM.decideOrder();
       std::cout<<"Game Start!"<<std::endl;

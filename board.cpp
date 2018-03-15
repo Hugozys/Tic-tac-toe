@@ -74,7 +74,7 @@ bool board::checkWinnerOption(std::string whichWay,int toCheck){
 	}
       }
       else{
-	if(snapShot[2-i][2-i] != toCheck){
+	if(snapShot[2-i][i] != toCheck){
 	  markContainer = false;
 	  break;
 	}
@@ -186,4 +186,17 @@ void board::clearBoard(){
       snapShot[i][j] = 0;
     }
   }
+}
+
+void board::notEmpty(){
+  is_empty = false;
+}
+
+bool board::isEmpty(){
+  return is_empty;
+}
+
+board::board(board && rhs){
+  snapShot = std::move(rhs.snapShot);
+  is_empty = rhs.is_empty;
 }

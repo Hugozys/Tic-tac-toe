@@ -16,6 +16,9 @@ class GameDemon{
   void playGame();
   void eraseSecond();
   void clearbd();
+  void human_turn(player * curr);
+  void ai_turn(player * curr);
+  void clearOrder();
   ~GameDemon(){
     delete pyArray[1];
     delete pyArray[0];
