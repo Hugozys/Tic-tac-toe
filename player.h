@@ -32,9 +32,12 @@ public:
 };
 
 class aiPlayer: public player{
+ private:
+  vector<
  public:
   virtual void AskMyName();
   virtual ~aiPlayer(){}
+  
 };
 
 #endif

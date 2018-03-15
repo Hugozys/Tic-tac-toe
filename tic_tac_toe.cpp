@@ -10,7 +10,6 @@ int main(void){
   std::cout<<"Game Start!"<<std::endl;
   GM.playGame();
   while(true){
-    GM.eraseSecond();
     std::cout<<"Do you want to play again(Y/N)?"<<std::endl;
     std::string input;
     getline(std::cin,input);
@@ -22,6 +21,7 @@ int main(void){
       break;
     }
     else if(input == "Y"){
+      GM.eraseSecond();
       GM.clearbd();
       GM.createSecondPlayer();
       GM.decideOrder();

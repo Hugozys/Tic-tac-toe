@@ -71,6 +71,7 @@ void GameDemon::showBoard(){
   bd.printBoard();
 }
 
+
 void GameDemon::playGame(){
   showBoard();
   std::string ans;

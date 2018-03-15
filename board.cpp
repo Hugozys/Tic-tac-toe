@@ -155,9 +155,9 @@ bool board::isValid(std::string line){
 }
 
 bool board::isOutRange(int row, int column){
-  bool r = row >= 0 && row <= 2; //out of range, return false
-  bool c = column>=0 && row <= 2;
-  if( !r || !c){
+  bool r =  (row < 0 || row > 2); //out of range, return true
+  bool c =  (column < 0 || column > 2);
+  if( r || c){
     return true;
   }
   return false;
