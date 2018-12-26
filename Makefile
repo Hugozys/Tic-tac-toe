@@ -14,7 +14,7 @@ Tic-tac-toe: board.o tic_tac_toe.o GameDemon.o player.o widget.o
 %.o: %.cpp
 	$(CXX) -c $<
 clean:
-	rm -f *.o *~ *# *.bak
+	rm -f *.o *~ *# *.bak testBoard Tic-tac-toe
 
 depend:
 	makedepend board.cpp GameDemon.cpp tic_tac_toe.cpp player.cpp
