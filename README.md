@@ -11,5 +11,5 @@ Minimax algorithm is used to determine the optimized move. A more efficient way 
 
 
 # How To Run
-To run the program, type `make` and run `./tic-tac-toe`
+To run the program, type `make` and run `./Tic-tac-toe`
 
